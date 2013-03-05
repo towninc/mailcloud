@@ -1,0 +1,25 @@
+<script type="text/javascript">
+    //<![CDATA[
+    $(function(){
+        $.initList( "reminderList", "reminderItem", true, "/reminder/json" );
+    });
+    //]]>
+</script>
+<h4><liquidtpl:text key="reminder"/> <liquidtpl:text key="list"/></h4>
+<table id="reminderList" class="listTable" style="display: none;">
+  <tr>
+    <th><liquidtpl:text key="reminder.subject"/></th>
+    <th><liquidtpl:text key="reminder.startDate"/></th>
+    <th></th>
+    <th></th>
+  </tr>
+</table>
+
+<script id="reminderItem" type="text/x-jquery-tmpl">
+  <tr class="row selectable">
+    <td>${subject}</td>
+    <td class='thin'>${startDate}</td>
+    <td class='thin'><a href="/reminder/form?id=${id}" class="icon_edit"><liquidtpl:text key="edit"/></a></td>
+    <td class='thin'><a href="/reminder/delete?id=${id}" class="icon_delete" onclick="return confirm('${deleteConfirm}');"><liquidtpl:text key="delete"/></a></td>
+  </tr>
+</script>

@@ -1,0 +1,138 @@
+<div class="box_grayLinewhite mt5">
+    <h4 style="display:none;" id="addTitle"><liquidtpl:text key="stepMail"/> <liquidtpl:text key="add"/></h4>
+    <h4 style="display:none;" id="editTitle"><liquidtpl:text key="stepMail"/> <liquidtpl:text key="edit"/></h4>
+    <script type="text/javascript">
+        //<![CDATA[
+
+        $(function(){
+            $.urlParams = $.getUrlParams();
+            $.stepMailForm = {};
+            $.stepMailForm.senderEmailList = {};
+            $.stepMailForm.contactGroups = {};
+            $.stepMailForm.onSenderChange = function(){
+                var selected = $("#senderEmailField option:selected").val();
+                var name = $("#senderNameField").val();
+
+                var len = $.stepMailForm.senderEmailList.length;
+                for(var i = 0; i < len; i++) {
+                    var senderEmail = $.stepMailForm.senderEmailList[i];
+                    if(senderEmail["email"] == selected)
+                    {
+                        name = senderEmail["name"];
+                    }
+                }
+
+                $("#senderNameField").val(name);
+            };
+
+            $.stepMailForm.onContactGroupChange = function(){
+                $("#sampleReplacers").empty();
+                var sampleReplacers = {};
+                for (var i in $.stepMailForm.contactGroups) {
+                    var contactGroup = $.stepMailForm.contactGroups[i]
+                    if(contactGroup["id"] == $("#formContactGroupKeyField").val()){
+                        sampleReplacers = contactGroup["sampleReplacers"];
+                    }
+                }
+                if((sampleReplacers != null) && (sampleReplacers.length > 0)){
+                    var sampleReplacersSize = sampleReplacers.length;
+                    $('#sampleReplacersLabel').text( $("#text > #contactGroup_sampleReplacers").text());
+
+                    var labels = $('<tr>');
+                    var values = $('<tr>');
+
+                    labels.append($.replacerLabel($("#text > #recipient_email").text(), sampleReplacersSize));
+                    values.append($.replacerValues(sampleReplacers, sampleReplacersSize));
+
+                    labels.appendTo("#sampleReplacers");
+                    values.appendTo("#sampleReplacers");
+                } else {
+                    $("#sampleReplacersLabel").text($("#text > #contactGroup_noContact").text());
+                    $("#sampleReplacers").empty();
+                }
+                $("#sampleReplacersDiv").fadeIn();
+            };
+
+            $.template( "senderEmailOptionsTemplate", '<option value="${email}">${email}<\/option>' );
+            $.template( "contactGroupOptionsTemplate", '<option value="${id}">${name}<\/option>' );
+            
+            $.initForm("stepmailForm", "/stepmail/json", null, function(jsonData){
+                $("#senderEmail").text("<" + jsonData["values"]["senderEmail"] + ">");
+
+                $.initList("senderEmailField", "senderEmailOptionsTemplate", true, "/userdata/json", {sender: "withoutlogin"}, function(listData){
+                    $.setListValues("senderEmailField", "senderEmailOptionsTemplate", true, listData)
+                    $.stepMailForm.senderEmailList = listData["values"];
+                    $("#senderEmailField").val(jsonData["values"]["senderEmail"]);
+                });
+
+                $.initList( "formContactGroupKeyField", "contactGroupOptionsTemplate", true, "/contact/groupjson", null, function(listData){
+                    $.setListValues( "formContactGroupKeyField", "contactGroupOptionsTemplate", true, listData);
+                    $.stepMailForm.contactGroups = listData["values"];
+                    $("#formContactGroupKeyField").val($.urlParams["contactGroupKey"]);
+                    $.stepMailForm.onContactGroupChange();
+                } );
+                
+                $.setFormValues("stepmailForm", jsonData);
+                $.showFormTitle("stepmailForm");
+                if(jsonData.values["isReplaced"] == true){
+                    $("#isReplacedField").get(0).checked = true;
+                }
+            });
+        });
+        //]]>
+    </script>
+
+    <form action="/stepmail/form" id="stepmailForm" style="display: none;">
+        <input id="contactGroupKeyField" name="contactGroupKey" type="hidden"/>
+        <div id="grobalError" class="warningMessage"  style="display:none;" />
+        <input type="hidden" id="recipientCsvKeyField" name="recipientCsvKey" />
+        <div class="ma5">
+            <label class="bold"><liquidtpl:text key="stepMail.from"/></label>
+            <span id="senderNameError" class="warningMessageOne" style="display:none;" />
+            <div>
+                <input id="senderNameField" name="senderName" class="w35" />&nbsp;
+                <select name="senderEmail" id="senderEmailField" onchange="$.stepMailForm.onSenderChange();" />
+            </div>
+        </div>
+        <div class="ma5">
+            <label class="bold" for="formContactGroupKeyField"><liquidtpl:text key="contactGroup"/></label>
+            <div><select id="formContactGroupKeyField" name="formContactGroupKey" onchange="$.stepMailForm.onContactGroupChange();" /></div>
+        </div>
+        <div class="ma5">
+            <label class="bold"><liquidtpl:text key="stepMail.subject"/></label>
+            <span id="subjectError" class="warningMessageOne" style="display:none;" />
+            <input id="subjectField" name="subject" class="w99" />
+        </div>
+        <div class="ma5">
+            <label class="bold"><liquidtpl:text key="stepMail.content"/></label>
+            <span id="contentError" class="warningMessageOne" style="display:none;" />
+            <textarea id="contentField" name="content" class="w99" rows="20"></textarea>
+        </div>
+        <div class="ma5">
+            <label for="isReplacedField"><input id="isReplacedField" name="isReplaced" type="checkbox" /><liquidtpl:text key="stepMail.isReplaced"/></label>
+            <div id="sampleReplacersDiv" class="mt5" style="display: none;">
+                <label id="sampleReplacersLabel" class="small"></label>
+                <table id="sampleReplacers" class="small formTable"/>
+            </div>
+        </div>
+        <hr />
+        <div class="ma5">
+            <span id="intervalDaysError" class="warningMessageOne" style="display:none;" />
+            <liquidtpl:text key="stepMail.daysFormPrefix"/>
+            <input id="intervalDaysField" name="intervalDays" />
+            <liquidtpl:text key="stepMail.daysFormSuffix"/>
+        </div>
+        <div class="ma5">
+            <label class="bold"><liquidtpl:text key="stepMail.sendTime"/></label>
+            <div><input id="sendTimeField" name="sendTime" /><span id="sendTimeError" class="warningMessageOne" style="display:none;" /></div>
+        </div>
+    </form>
+</div>
+
+<div id="text" style="display:none;">
+    <p id="stepMail_csvOverWriteConfirm"><liquidtpl:text key="stepMail.csvOverWriteConfirm"/></p>
+<p id="recipient_email"><liquidtpl:text key="recipient.email"/></p>
+<p id="stepMail_sampleReplacers"><liquidtpl:text key="stepMail.sampleReplacers"/></p>
+<p id="contactGroup_sampleReplacers"><liquidtpl:text key="contactGroup.sampleReplacers"/></p>
+<p id="contactGroup_noContact"><liquidtpl:text key="contactGroup.noContact"/></p>
+</div>

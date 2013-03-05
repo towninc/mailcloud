@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cronentries>
+    <cron>
+        <url>/cron/mail/add</url>
+        <schedule>every 1 minutes</schedule>
+    </cron>
+    <cron>
+        <url>/cron/contact/count</url>
+        <schedule>every 10 minutes</schedule>
+    </cron>
+    <cron>
+        <url>/cron/mail/clean</url>
+        <schedule>every 6 hours</schedule>
+    </cron>
+    <cron>
+        <url>/tasks/mail/count</url>
+        <schedule>every 1 hours</schedule>
+    </cron>
+    <cron>
+        <url>/tasks/recipient/count</url>
+        <schedule>every 1 hours</schedule>
+    </cron>
+</cronentries>

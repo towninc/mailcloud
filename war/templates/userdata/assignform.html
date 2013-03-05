@@ -1,0 +1,45 @@
+<div class="box_grayLinewhite mt5">
+    <script type="text/javascript">
+        //<![CDATA[
+
+        $(function(){
+            $.initForm("userdataForm", "/userdata/json", null, function(jsonData){
+                $.initList( "userdataList", "userdataItem", true, "/userdata/json", null, function(listData){
+                    $.setListValues( "userdataList", "userdataItem", true, listData);
+                    
+                    $.ajax({
+                        type: "POST",
+                        url: "/userdata/json",
+                        data: {
+                            "mode" : "list",
+                            "sender" : "withoutlogin"
+                        },
+                        dataType: "text",
+                        success: function(result){
+                            try {
+                                var userDataJson = $.evalJsonCommentFiltered(result);
+                                if(userDataJson.info){
+                                    if(userDataJson.info["assignCheck"]){
+                                        $("#assignLabel").text(userDataJson.info["assignCheck"]);
+                                    }
+                                    if(userDataJson.info["assignFlag"]){
+                                        $("#assignField").get(0).checked = true;
+                                    }
+                                }
+                            } catch (e) {
+                                $("#grobalError").text(e.toString()).slideDown("fast");
+                            }
+                        }
+                    });
+                } );
+                $.setFormValues( "userdataForm", jsonData);
+            });
+        });
+        //]]>
+    </script>
+    <h4><liquidtpl:text key="assignCommonSenders"/></h4>
+    <form action="/userdata/assignform" id="userdataForm" style="display: none;">
+        <input type="checkbox" value="true" name="assign" id="assignField"/>
+        <label for="assignField" id="assignLabel" /><br />
+    </form>
+</div>

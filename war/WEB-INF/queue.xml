@@ -1,0 +1,32 @@
+
+<queue-entries>
+    <queue>
+        <name>default</name>
+        <rate>10/s</rate>
+    </queue>
+    <queue>
+        <name>slim3-gtx-queue</name>
+        <rate>10/s</rate>
+        <bucket-size>10</bucket-size>
+    </queue>
+    <queue>
+        <name>magazine</name>
+        <rate>5/s</rate>
+    </queue>
+    <queue>
+        <name>stepmail</name>
+        <rate>5/s</rate>
+    </queue>
+    <queue>
+        <name>reminder</name>
+        <rate>5/s</rate>
+    </queue>
+    <queue>
+        <name>mail</name>
+        <rate>5/s</rate>
+    </queue>
+    <queue>
+        <name>import</name>
+        <rate>20/s</rate>
+    </queue>
+</queue-entries>

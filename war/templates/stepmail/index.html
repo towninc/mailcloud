@@ -1,0 +1,41 @@
+<script type="text/javascript">
+    //<![CDATA[
+    $(function(){
+        $.urlParams = $.getUrlParams();
+        $.initList( "stepmailList", "stepmailItem", true, "/stepmail/json", null, function(jsonData){
+            $.initList( "contactGroup", "senderEmailOptionsTemplate", true, "/contact/groupjson", null, function(listData){
+                $.setListValues( "contactGroup", "senderEmailOptionsTemplate", true, listData);
+                $("#contactGroup").val($.urlParams["contactGroupKey"]);
+            } );
+
+            $.setListValues( "stepmailList", "stepmailItem", true, jsonData);
+        });
+        $.template( "senderEmailOptionsTemplate", '<option value="${id}">${name}<\/option>' );
+        
+    });
+    function onChangeGroup(){
+        location.href = "/stepmail/index?contactGroupKey=" + $("#contactGroup").val();
+    }
+    //]]>
+</script>
+<h4><liquidtpl:text key="stepMail"/> <liquidtpl:text key="list"/></h4>
+<form action="/stepmail/index">
+    <label for="contactGroup"><liquidtpl:text key="contactGroup"/>: <select id="contactGroup" onchange="onChangeGroup();" /></label>
+</form>
+
+<table id="stepmailList" class="listTable" style="display: none;">
+    <tr>
+        <th><liquidtpl:text key="stepMail.subject"/></th>
+<th><liquidtpl:text key="stepMail.intervalDays"/></th>
+<th></th>
+<th></th>
+</tr>
+</table>
+<script id="stepmailItem" type="text/x-jquery-tmpl">
+    <tr class="row selectable">
+        <td>${subject}</td>
+        <td class='thin'><liquidtpl:text key="stepMail.daysListPrefix"/>${intervalDays}<liquidtpl:text key="stepMail.daysListSuffix"/></td>
+<td class='thin'><a href="/stepmail/form?id=${id}&amp;contactGroupKey=${contactGroupKey}" class="icon_edit"><liquidtpl:text key="edit"/></a></td>
+<td class='thin'><a href="/stepmail/delete?id=${id}" class="icon_delete" onclick="return confirm('${deleteConfirm}');"><liquidtpl:text key="delete"/></a></td>
+</tr>
+</script>

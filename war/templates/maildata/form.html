@@ -1,0 +1,188 @@
+<div class="box_grayLinewhite mt5">
+    <h4 style="display:none;" id="addTitle"><liquidtpl:text key="mailData"/> <liquidtpl:text key="add"/></h4>
+    <h4 style="display:none;" id="editTitle"><liquidtpl:text key="mailData"/> <liquidtpl:text key="edit"/></h4>
+    <script type="text/javascript">
+        //<![CDATA[
+
+        $(function(){
+            $.template( "senderEmailOptionsTemplate", '<option value="${email}">&lt;${email}&gt;<\/option>' );
+
+
+            $.mailDataForm = {};
+            $.mailDataForm.senderEmailList = {};
+            $.mailDataForm.onSenderChange = function(){
+                var selected = $("#senderEmailField option:selected").val();
+                var name = $("#senderNameField").val();
+                
+                var len = $.mailDataForm.senderEmailList.length;
+                for(var i = 0; i < len; i++) {
+                    var senderEmail = $.mailDataForm.senderEmailList[i];
+                    if(senderEmail["email"] == selected)
+                    {
+                        name = senderEmail["name"];
+                    }
+                }
+
+                $("#senderNameField").val(name);
+            };
+
+            $.initForm("maildataForm", "/maildata/json", null, function(jsonData){
+                $("#senderEmail").text("<" + jsonData["values"]["senderEmail"] + ">");
+
+                $.initList("senderEmailField", "senderEmailOptionsTemplate", true, "/userdata/json", {sender: "withoutlogin"}, function(listData){
+                    $.setListValues("senderEmailField", "senderEmailOptionsTemplate", true, listData)
+                    $.mailDataForm.senderEmailList = listData["values"];
+                    $("#senderEmailField").val(jsonData["values"]["senderEmail"]);
+                });
+
+                $.setFormValues("maildataForm", jsonData);
+                $.showFormTitle("maildataForm");
+                if(jsonData.values["isReplaced"] == true){
+                    $("#isReplacedField").get(0).checked = true;
+                }
+            });
+
+            $.ajax({
+                type: "POST",
+                url: "/maildata/upload",
+                data: {
+                    "mode" : "uploadUrl"
+                },
+                dataType: "text",
+                success: function(result){
+                    try {
+                        var _values = $.evalJsonCommentFiltered(result);
+                        $('#recipientCsvForm').attr("action", _values["url"]);
+                        $.tmpl("optionsTemplate", _values["charsetMap"]).appendTo("#charsetField");
+                        $("#charsetField").val(_values["charset"]);
+                        $('#recipientCsvForm').show();
+                    } catch (e) {
+                        $("#grobalError").text(e.toString()).slideDown("fast");
+                    }
+                }
+            });
+
+            $('#recipientCsvForm').fileUploadUI({
+                namespace: 'recipients',
+                uploadTable: $('#files'),
+                downloadTable: $('#files'),
+                buildUploadRow: function (files, index) {
+                    return $('<tr style="display:none;"><td>' + files[index].name + '<\/td>' +
+                        '<td class="recipientCsvForm_progress"><div id="prog">Uploading<\/div><\/td><\/tr>');
+                },
+                buildDownloadRow: function (file) {
+
+                    if(file["result"] == "success"){
+                        $("#maildataForm > #recipientCsvKeyField").val(file["id"]);
+                        $("#sampleReplacers").empty();
+                        var sampleReplacers = file["sampleReplacers"];
+                        var sampleReplacersSize = sampleReplacers.length;
+                        $('#sampleReplacersLabel').text( file["name"]
+                            + " ("
+                            + $("#text > #mailData_sampleReplacers").text()
+                            + ")");
+
+                        var labels = $('<tr>');
+                        var values = $('<tr>');
+
+                        labels.append($.replacerLabel($("#text > #recipient_email").text(), sampleReplacersSize));
+                        values.append($.replacerValues(sampleReplacers, sampleReplacersSize));
+
+                        labels.appendTo("#sampleReplacers");
+                        values.appendTo("#sampleReplacers");
+                        $("#sampleReplacersDiv").fadeIn();
+                        return "";
+                    } else {
+                        return $.tmpl("filedownload", file).addClass("warningMessageOne");
+                    }
+                },
+                beforeSend: function (event, files, index, xhr, handler, callBack) {
+                    $(".warningMessage").hide();
+                    $(".warningMessageOne").hide();
+                    $("#recipientCsvForm").find(".warningMessageOne").remove();
+
+                    var keyValue = $("#maildataForm > #recipientCsvKeyField").val();
+                    if ((keyValue != null) && (keyValue.length > 0)) {
+                        if(confirm($("#text > #mailData_csvOverWriteConfirm").text())) {
+                            $(".filedownload").remove();
+                            $("#maildataForm > #recipientCsvKeyField").val(null);
+                        } else {
+                            handler.removeNode(handler.uploadRow);
+                            return;
+                        }
+                        $("#sampleReplacersDiv").hide();
+                    }
+                    //for json-comment-filtered
+                    handler.parseResponse = function (xhr) {
+                        if (typeof xhr.responseText !== 'undefined') {
+                            return $.evalJsonCommentFiltered(xhr.responseText);
+                        } else {
+                            // Instead of an XHR object, an iframe is used for legacy browsers:
+                            return $.evalJsonCommentFiltered(xhr.contents().text());
+                        }
+                    };
+
+                    callBack();
+                },
+                onProgress: function (event, files, index, xhr, handler) {
+                    if (handler.progressbar) {
+                        handler.progressbar.progressbar(
+                        'value',
+                        parseInt(event.loaded / event.total * 100, 10));
+                        if(event.loaded == event.total) {
+                            $("<img>").attr("src", "/img/common/ajax-loader.gif").appendTo("#prog");
+                        }
+                    }
+                }
+
+            });
+
+            $.template( "filedownload", '<tr class="filedownload"><td>${name} (${type})<\/td><\/tr>' );
+        });
+        //]]>
+    </script>
+
+    <form action="/recipient/upload" id="recipientCsvForm" method="post" enctype="multipart/form-data" style="display: none;">
+        <div class="ma5">
+            <label class="bold"><liquidtpl:text key="mailData.csvFile"/>: </label>
+            <span id="recipientError" class="warningMessageOne" style="display:none;" />
+            <input type="file" name="formFile" />
+            <label><liquidtpl:text key="mailData.csvCharset"/>: </label>
+            <select id="charsetField" name="charset"/>
+            <table id="files"/>
+            <div id="sampleReplacersDiv" class="mt5" style="display: none;">
+                <label id="sampleReplacersLabel" class="small"></label>
+                <table id="sampleReplacers" class="small formTable"/>
+            </div>
+        </div>
+    </form>
+    <hr />
+    <form action="/maildata/form" id="maildataForm" style="display: none;">
+        <div id="grobalError" class="warningMessage"  style="display:none;" />
+        <input type="hidden" id="recipientCsvKeyField" name="recipientCsvKey" />
+        <div class="ma5">
+            <label class="bold"><liquidtpl:text key="mailData.from"/></label>
+            <span id="senderNameError" class="warningMessageOne" style="display:none;" />
+            <div>
+                <input id="senderNameField" name="senderName" class="w35" />&nbsp;<select name="senderEmail" id="senderEmailField" onchange="$.mailDataForm.onSenderChange();"></select>
+            </div>
+        </div>
+        <div class="ma5">
+            <label class="bold"><liquidtpl:text key="mailData.subject"/></label>
+            <span id="subjectError" class="warningMessageOne" style="display:none;" />
+            <input id="subjectField" name="subject" class="w99" />
+        </div>
+        <div class="ma5">
+            <label class="bold"><liquidtpl:text key="mailData.content"/></label>
+            <span id="contentError" class="warningMessageOne" style="display:none;" />
+            <textarea id="contentField" name="content" class="w99" rows="20"></textarea>
+        </div>
+        <div class="ma5"><label for="isReplacedField"><input id="isReplacedField" name="isReplaced" type="checkbox" /><liquidtpl:text key="mailData.isReplaced"/></label></div>
+    </form>
+</div>
+
+<div id="text" style="display:none;">
+    <p id="mailData_csvOverWriteConfirm"><liquidtpl:text key="mailData.csvOverWriteConfirm"/></p>
+<p id="recipient_email"><liquidtpl:text key="recipient.email"/></p>
+<p id="mailData_sampleReplacers"><liquidtpl:text key="mailData.sampleReplacers"/></p>
+</div>

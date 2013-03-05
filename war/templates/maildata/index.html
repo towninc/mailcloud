@@ -1,0 +1,30 @@
+<script type="text/javascript">
+    //<![CDATA[
+    $(function(){
+        $.initList( "maildataList", "maildataItem", true, "/maildata/json" );
+    });
+    //]]>
+</script>
+<h4><liquidtpl:text key="history"/></h4>
+
+<div class="ma5">
+    <liquidtpl:text key="mailData.listMessage"/>
+</div>
+
+<table id="maildataList" class="listTable" style="display: none;">
+  <tr>
+    <th><liquidtpl:text key="mailData.sentAt"/></th>
+    <th><liquidtpl:text key="mailData.subject"/></th>
+    <th><liquidtpl:text key="mailData.from"/></th>
+    <th><liquidtpl:text key="mailData.status"/></th>
+  </tr>
+</table>
+
+<script id="maildataItem" type="text/x-jquery-tmpl">
+  <tr class="row selectable">
+    <td class='thin'>{{if sentAt}}${sentAt}{{else}}${createdAt}{{/if}}</td>
+    <td>${subject}</td>
+    <td class='thin'>${sender}</td>
+    <td class='thin'>${statusString}</td>
+  </tr>
+</script>

@@ -1,0 +1,74 @@
+<script type="text/javascript">
+    //<![CDATA[
+    $(function(){
+        $.initList( "contactGroupList", "contactGroupItem", true, "/contact/groupjson", null, function(jsonData){
+            $.setListValues("contactGroupList", "contactGroupItem", true, jsonData);
+            if(jsonData["values"] && (jsonData["values"].length > 0)){
+                values = jsonData["values"];
+                var len = values.length;
+                for(var i = 0 ; i < len ; i++){
+                	var csvErrors = values[i]["csvErrors"];
+                	if(csvErrors && csvErrors.length > 0){
+                		var errorsHtml = $("<ul>").attr("style", "margin-top: 5px; margin-bottom: 5px;")
+                		.attr("id", "csvError_" + values[i]["id"]).hide();
+                		var len2 = csvErrors.length;
+                		for(var j = 0 ; j < len2 ; j++){
+                        	var csvError = csvErrors[j];
+                        	errorsHtml.append($("<li>").text(csvError));
+                		}
+                		var id = values[i]["id"];
+                		
+                		var errorLink = $("<a onclick='$(\"#csvError_" + id + "\").fadeIn();return false;'>").attr("href", "#").text("[+]");
+                		
+                		$("#name_" + values[i]["id"]).append("&nbsp;").append(errorLink).append(errorsHtml);
+                	}
+                }
+            }
+        });
+        
+        $.forceCount = function(id){
+        	$.ajax({
+                type: "POST",
+                url: "/tasks/contact/count?contactGroupKey=" + id,
+                dataType: "text",
+                success: function(result){
+                	location.reload();
+                },
+                error: function(err){
+                	location.reload();
+                }
+            });
+        };
+    });
+    //]]>
+</script>
+<h4><liquidtpl:text key="contactGroup"/> <liquidtpl:text key="list"/></h4>
+<table id="contactGroupList" class="listTable" style="display: none;">
+    <tr>
+        <th><liquidtpl:text key="contactGroup.name"/></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</table>
+
+<script id="contactGroupItem" type="text/x-jquery-tmpl">
+    <tr class="row selectable">
+        <td id="name_${id}">${name}&nbsp;&nbsp;(${contactCount} <liquidtpl:text key="contact.unit"/>)</td>
+<td class='thin'>
+    {{if isBusy==false}}
+    <a href="/contact/groupform?id=${id}" class="icon_edit"><liquidtpl:text key="edit"/></a>
+    {{else}}
+    <liquidtpl:text key="contactGroup.busy"/>
+    {{/if}}
+</td>
+<td class='thin'><a href="/contact/index?contactGroupKey=${id}" class="icon_user"><liquidtpl:text key="contact"/> <liquidtpl:text key="list"/></a></td>
+<td class='thin'>
+    {{if isBusy==false}}
+    <a href="/contact/groupdelete?id=${id}" class="icon_delete" onclick="return confirm('${deleteConfirm}');"><liquidtpl:text key="delete"/></a>
+    {{else}}
+    <span><button onclick="$.forceCount('${id}');"><liquidtpl:text key="refresh"/></button></span>
+    {{/if}}
+</td>
+</tr>
+</script>

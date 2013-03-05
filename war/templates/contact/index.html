@@ -1,0 +1,194 @@
+<script type="text/javascript">
+    //<![CDATA[
+    $(function(){
+        $.urlParams = $.getUrlParams();
+        $.contactPage = {};
+        $.contactPage.list = [];
+        $.contactPage.last = 0;
+        $.contactPage.current = 0;
+        $.contactPage.complete = false;
+        $.contactRepracerSize = 0;
+
+        $.updateLinks = function() {
+            $("#checkAll").get(0).checked = false;
+            if($.contactPage.current < 1){
+                $("#previousPager").addClass("disabled");
+            } else {
+                $("#previousPager").removeClass("disabled");
+                
+            }
+
+            if(($.contactPage.complete)
+                && ($.contactPage.current == $.contactPage.last)){
+                $("#nextPager").addClass("disabled");
+            } else {
+                $("#nextPager").removeClass("disabled");
+            }
+        }
+
+        $.insertReplacers = function(jsonData){
+            var length = jsonData["values"].length;
+            for(var i = 0; i < length ; i++){
+                var replacers = jsonData["values"][i]["replacers"];
+                var cellId = "td_" + jsonData["values"][i]["id"];
+                $("#" + cellId).after($.replacerValues(replacers, $.contactRepracerSize));
+            }
+        }
+
+        $.nextPager = function (curnext){
+            if(($.contactPage.complete)
+                && ($.contactPage.current == $.contactPage.last)){
+                return;
+            }
+            
+            $("#contactListDiv").hide();
+            $("#contactList").find(".row").remove();
+            if($.contactPage.last > $.contactPage.current){
+                $.contactPage.current++;
+                $.setListValues("contactList", "contactItem", true, $.contactPage.list[$.contactPage.current]);
+                $.insertReplacers($.contactPage.list[$.contactPage.current]);
+                $.updateLinks();
+            } else {
+                $.initList( "contactList", "contactItem", true, curnext, null, function(jsonData){
+                    $.setListValues("contactList", "contactItem", true, jsonData);
+                    $.insertReplacers(jsonData);
+                    $.contactPage.last++;
+                    $.contactPage.current++;
+                    $.contactPage.list[$.contactPage.last] = jsonData;
+
+                    if(jsonData.info && jsonData.info["curnext"]){
+                        $("#nextLink").unbind("click");
+                        $("#nextLink").bind("click", function(){
+                            $.nextPager(jsonData.info["curnext"]);
+                            return false;
+                        });
+                    } else {
+                        $.contactPage.complete = true;
+                    }
+
+                    $.updateLinks();
+                });
+            }
+            $("#contactListDiv").show();
+            return false;
+        }
+
+        $.previousPager = function (){
+            if($.contactPage.current < 1){
+                return;
+            }
+
+            $.contactPage.current--;
+            $("#contactListDiv").hide();
+            $("#contactList").find(".row").remove();
+            $.setListValues("contactList", "contactItem", true, $.contactPage.list[$.contactPage.current]);
+            $.insertReplacers($.contactPage.list[$.contactPage.current]);
+            $("#contactListDiv").show();
+            $.updateLinks();
+        }
+
+        $.initList( "contactList", "contactItem", true, "/contact/json", null, function(jsonData){
+            $.setListValues("contactList", "contactItem", true, jsonData);
+            if(jsonData["values"] && (jsonData["values"].length > 0)){
+                $.contactRepracerSize = jsonData["values"][0]["replacers"].length;
+                $("#contactLabelCheck").after($.replacerLabel($("#text > #contact_email").text(), $.contactRepracerSize));
+                $.insertReplacers(jsonData);
+            }
+
+
+            $.contactPage.list[$.contactPage.last] = jsonData;
+            if(jsonData.info && jsonData.info["curnext"]){
+                $("<a>")
+                .attr("id", "nextLink")
+                .text(">>")
+                .attr("href", "")
+                .bind("click", function(){
+                    $.nextPager(jsonData.info["curnext"]);
+                    return false;
+                })
+                .appendTo("#nextPager");
+
+                $("<a>")
+                .attr("id", "previousLink")
+                .text("<<")
+                .attr("href", "")
+                .bind("click", function(){
+                    $.previousPager();
+                    return false;
+                })
+                .appendTo("#previousPager");
+
+                $.updateLinks();
+            }
+
+            if(jsonData["values"] && (jsonData["values"].length > 0)){
+                $("<input>").attr("type", "submit")
+                .val(jsonData.info["delete"])
+                .prependTo("#controlPager");
+
+                $("<input>").attr("type", "hidden")
+                .attr("name", "contactGroupKey")
+                .val($.urlParams["contactGroupKey"])
+                .prependTo("#controlPager");
+
+                $("#contactListForm").bind( "submit", function (){
+                    if(window.confirm(jsonData.info["deleteConfirm"])){
+                        $.submit("contactListForm");
+                    }
+                    return false;
+                });
+            }
+
+            $.initList( "contactGroup", "senderEmailOptionsTemplate", true, "/contact/groupjson", null, function(listData){
+                $.setListValues( "contactGroup", "senderEmailOptionsTemplate", true, listData);
+                $("#contactGroup").val($.urlParams["contactGroupKey"]);
+            } );
+        });
+        $.template( "senderEmailOptionsTemplate", '<option value="${id}">${name}<\/option>' );
+        $.checkAll = function(elem, className){
+            $("." + className).attr("checked", $(elem).attr("checked"));
+        }
+    });
+    function onChangeGroup(){
+        location.href = "/contact/index?contactGroupKey=" + $("#contactGroup").val();
+    }
+    //]]>
+</script>
+<form action="/contact/index">
+    <h4>
+        <label for="contactGroup"><liquidtpl:text key="contact"/> <liquidtpl:text key="list"/>: <select id="contactGroup" onchange="onChangeGroup();" /></label>
+    </h4>
+</form>
+
+<form id="contactListForm" action="/contact/delete" onsubmit="return false">
+    <div id="contactListDiv">
+        <table id="contactList" class="listTable" style="display: none;">
+            <tr>
+                <th class="thin" id="contactLabelCheck">
+                    <input id="checkAll" type="checkbox" onclick="$.checkAll(this, 'check_contact');"/>
+                </th>
+                <th><liquidtpl:text key="createdAt"/></th>
+            </tr>
+        </table>
+    </div>
+    <div class="mb20">
+        <span class="pagination">
+            <ul>
+                <li id="controlPager" class="mr10"></li>
+                <li id="previousPager" class="left" />
+                <li id="nextPager" class="right" />
+            </ul>
+        </span>
+    </div>
+</form>
+
+<script id="contactItem" type="text/x-jquery-tmpl">
+    <tr class="row selectable">
+        <td id="td_${id}"><input class="check_contact" type="checkbox" name="id[]" id="id_${id}" value="${id}"/></td>
+        <td class='thin'>${createdAt}</td>
+    </tr>
+</script>
+
+<div id="text" style="display:none;">
+    <p id="contact_email"><liquidtpl:text key="contact.email"/></p>
+</div>
