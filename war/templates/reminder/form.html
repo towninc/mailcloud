@@ -1,6 +1,6 @@
 <div class="box_grayLinewhite mt5">
-    <h4 style="display:none;" id="addTitle"><liquidtpl:text key="reminder"/> <liquidtpl:text key="add"/></h4>
-    <h4 style="display:none;" id="editTitle"><liquidtpl:text key="reminder"/> <liquidtpl:text key="edit"/></h4>
+    <h4 style="display:none;" id="addTitle"><liquidtpl:text key="reminder"/> <liquidtpl:text key="add"/> </h4>
+    <h4 style="display:none;" id="editTitle"><liquidtpl:text key="reminder"/> <liquidtpl:text key="edit"/> </h4>
     <script type="text/javascript">
         //<![CDATA[
         function refreshRepeatType() {
@@ -95,44 +95,44 @@
         //]]>
     </script>
     <form action="/reminder/form" id="reminderForm" style="display: none;">
-        <div id="grobalError" class="warningMessage"  style="display:none;" />
+        <div id="grobalError" class="warningMessage"  style="display:none;" > </div>
         <div class="ma5">
-            <label class="bold"><liquidtpl:text key="reminder.from"/></label>
-            <span id="senderNameError" class="warningMessageOne" style="display:none;" />
+            <label class="bold"><liquidtpl:text key="reminder.from"/> </label>
+            <span id="senderNameError" class="warningMessageOne" style="display:none;" > </span>
             <div>
                 <input id="senderNameField" name="senderName" class="w35" />&nbsp;
                 <select name="senderEmail" id="senderEmailField" onchange="$.reminderForm.onSenderChange();" />
             </div>
         </div>
         <div class="ma5">
-            <label class="bold"><liquidtpl:text key="reminder.subject"/></label>
-            <span id="subjectError" class="warningMessageOne" style="display:none;" />
+            <label class="bold"><liquidtpl:text key="reminder.subject"/> </label>
+            <span id="subjectError" class="warningMessageOne" style="display:none;" > </span>
             <input id="subjectField" name="subject" class="w99" />
         </div>
         <div class="ma5">
-            <label class="bold"><liquidtpl:text key="reminder.content"/></label>
-            <span id="contentError" class="warningMessageOne" style="display:none;" />
-            <textarea id="contentField" name="content" class="w99" rows="10"></textarea>
+            <label class="bold"><liquidtpl:text key="reminder.content"/> </label>
+            <span id="contentError" class="warningMessageOne" style="display:none;" > </span>
+            <textarea id="contentField" name="content" class="w99" rows="10"> </textarea>
         </div>
         <hr />
         <div class="ma5">
-            <label class="bold"><liquidtpl:text key="reminder.startDate"/></label>
-            <span id="startDateError" class="warningMessageOne" style="display:none;" />
+            <label class="bold"><liquidtpl:text key="reminder.startDate"/> </label>
+            <span id="startDateError" class="warningMessageOne" style="display:none;" > </span>
             <input id="startDateField" name="startDate" /><br/>
-            <select id="repeatTypeField" name="repeatType" onchange="refreshRepeatType();"></select>
-            <span id="repeatTypeError" class="warningMessageOne" style="display:none;" />
+            <select id="repeatTypeField" name="repeatType" onchange="refreshRepeatType();"> </select>
+            <span id="repeatTypeError" class="warningMessageOne" style="display:none;" > </span>
             <div class="repeat repeat_common" style="display: None;">
-                <select id="repeatCycleField" name="repeatCycle"></select>
-                <span id="repeatCycleError" class="warningMessageOne" style="display:none;" />
+                <select id="repeatCycleField" name="repeatCycle"> </select>
+                <span id="repeatCycleError" class="warningMessageOne" style="display:none;" > </span>
                 <span class="repeat repeatW" style="display: None;">
-                    <span id="repeatWeekDaysField" name="repeatWeek"></span>
+                    <span id="repeatWeekDaysField" name="repeatWeek"> </span>
                     <script id="repeatWeekDaysItem" type="text/x-jquery-tmpl">
                         <label for="repeatWeekDaysField_${key}">
                             <input class="mr0" id="repeatWeekDaysField_${key}" name="repeatWeekDays[]" value="${key}" type="checkbox"/>
                             ${value}
                         </label>
                     </script>
-                    <span id="repeatWeekDaysError" class="warningMessageOne" style="display:none;" />
+                    <span id="repeatWeekDaysError" class="warningMessageOne" style="display:none;" > </span>
 
                 </span>
                 <div>
@@ -141,16 +141,16 @@
                         <liquidtpl:text key="reminder.isEnd" />
                     </label>
                     &nbsp;&nbsp;<input id="endDateField" name="endDate" />
-                    <span id="endDateError" class="warningMessageOne" style="display:none;" />
+                    <span id="endDateError" class="warningMessageOne" style="display:none;" > </span>
                 </div>
             </div>
         </div>
         <hr />
         <div class="ma5">
-            <label class="bold"><liquidtpl:text key="reminder.recipients"/></label>
-            <span id="recipientsError" class="warningMessageOne" style="display:none;" />
-            <textarea id="recipientsField" name="recipients" class="w99" rows="5"></textarea>
-            <div><liquidtpl:text key="reminder.recipientsMessage"/></div>
+            <label class="bold"><liquidtpl:text key="reminder.recipients"/> </label>
+            <span id="recipientsError" class="warningMessageOne" style="display:none;" > </span>
+            <textarea id="recipientsField" name="recipients" class="w99" rows="5"> </textarea>
+            <div><liquidtpl:text key="reminder.recipientsMessage"/> </div>
         </div>
     </form>
 </div>

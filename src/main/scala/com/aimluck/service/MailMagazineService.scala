@@ -38,7 +38,7 @@ object MailMagazineService {
   val dateFormat:DateFormat = MailMagazineService.dateFormatter;
 
   object MailMagazineProtocol extends DefaultProtocol {
-    import dispatch.json._
+    import dispatch.classic.json._
     import JsonSerialization._
 
     implicit object MailMagazineFormat extends Format[MailMagazine] {
@@ -68,7 +68,7 @@ object MailMagazineService {
   }
 
   object MailMagazineListProtocol extends DefaultProtocol {
-    import dispatch.json._
+    import dispatch.classic.json._
     import JsonSerialization._
 
     implicit object MailMagazineFormat extends Format[MailMagazine] {

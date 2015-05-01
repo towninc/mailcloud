@@ -3,8 +3,8 @@ package com.aimluck.controller.userdata;
 
 import com.aimluck.model.UserData
 import com.aimluck.service.UserDataService
-import dispatch.json.JsString
-import dispatch.json.JsValue
+import dispatch.classic.json.JsString
+import dispatch.classic.json.JsValue
 import java.util.Date
 import java.util.logging.Logger
 import org.dotme.liquidtpl.Constants

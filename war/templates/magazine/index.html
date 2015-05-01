@@ -18,24 +18,24 @@
     }
     //]]>
 </script>
-<h4><liquidtpl:text key="mailMagazine"/> <liquidtpl:text key="list"/></h4>
+<h4><liquidtpl:text key="mailMagazine"/> <liquidtpl:text key="list"/> </h4>
 <form action="/magazine/index">
-    <label for="contactGroup"><liquidtpl:text key="contactGroup"/>: <select id="contactGroup" onchange="onChangeGroup();" /></label>
+    <label for="contactGroup"><liquidtpl:text key="contactGroup"/>: <select id="contactGroup" onchange="onChangeGroup();" /> </label>
 </form>
 
 <table id="magazineList" class="listTable" style="display: none;">
     <tr>
-        <th><liquidtpl:text key="mailMagazine.subject"/></th>
-<th><liquidtpl:text key="mailMagazine.sendDateTime"/></th>
-<th></th>
-<th></th>
+        <th><liquidtpl:text key="mailMagazine.subject"/> </th>
+<th><liquidtpl:text key="mailMagazine.sendDateTime"/> </th>
+<th> </th>
+<th> </th>
 </tr>
 </table>
 <script id="magazineItem" type="text/x-jquery-tmpl">
     <tr class="row selectable">
         <td>${subject}</td>
         <td class='thin'>${sendDateTime}</td>
-<td class='thin'><a href="/magazine/form?id=${id}&amp;contactGroupKey=${contactGroupKey}" class="icon_edit"><liquidtpl:text key="edit"/></a></td>
-<td class='thin'><a href="/magazine/delete?id=${id}" class="icon_delete" onclick="return confirm('${deleteConfirm}');"><liquidtpl:text key="delete"/></a></td>
+<td class='thin'><a href="/magazine/form?id=${id}&amp;contactGroupKey=${contactGroupKey}" class="icon_edit"><liquidtpl:text key="edit"/> </a> </td>
+<td class='thin'><a href="/magazine/delete?id=${id}" class="icon_delete" onclick="return confirm('${deleteConfirm}');"><liquidtpl:text key="delete"/> </a> </td>
 </tr>
 </script>

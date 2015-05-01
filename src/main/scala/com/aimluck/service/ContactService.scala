@@ -36,7 +36,7 @@ object ContactService {
   val logger = Logger.getLogger(ContactService.getClass.getName)
 
   object ContactProtocol extends DefaultProtocol {
-    import dispatch.json._
+    import dispatch.classic.json._
     import JsonSerialization._
 
     implicit object ContactFormat extends Format[Contact] {

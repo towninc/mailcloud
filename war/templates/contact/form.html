@@ -1,6 +1,6 @@
 <div class="box_grayLinewhite mt5">
-    <h4 style="display:none;" id="addTitle"><liquidtpl:text key="contact"/> <liquidtpl:text key="add"/></h4>
-    <h4 style="display:none;" id="editTitle"><liquidtpl:text key="contact"/> <liquidtpl:text key="edit"/></h4>
+    <h4 style="display:none;" id="addTitle"><liquidtpl:text key="contact"/> <liquidtpl:text key="add"/> </h4>
+    <h4 style="display:none;" id="editTitle"><liquidtpl:text key="contact"/> <liquidtpl:text key="edit"/> </h4>
     <script type="text/javascript">
         //<![CDATA[
         $(function(){
@@ -17,15 +17,15 @@
     </script>
     <form action="/contact/form" id="contactForm" style="display: none;">
         <input id="contactGroupKeyField" name="contactGroupKey" type="hidden"/>
-        <div id="grobalError" class="warningMessage"  style="display:none;" />
+        <div id="grobalError" class="warningMessage"  style="display:none;" > </div>
         <div class="ma5">
-            <label class="bold"><liquidtpl:text key="contact.name"/></label>
-            <span id="nameError" class="warningMessageOne" style="display:none;" />
+            <label class="bold"><liquidtpl:text key="contact.name"/> </label>
+            <span id="nameError" class="warningMessageOne" style="display:none;" > </span>
             <input id="nameField" name="name" class="w99" />
         </div>
         <div class="ma5">
-            <label class="bold"><liquidtpl:text key="contact.email"/></label>
-            <span id="emailError" class="warningMessageOne" style="display:none;" />
+            <label class="bold"><liquidtpl:text key="contact.email"/> </label>
+            <span id="emailError" class="warningMessageOne" style="display:none;" > </span>
             <input id="emailField" name="email" class="w99" />
         </div>
     </form>

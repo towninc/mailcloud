@@ -14,15 +14,14 @@ import org.slim3.datastore.S3QueryResultList
 import scala.collection.JavaConversions._
 import scala.collection.mutable.StringBuilder
 
-
 class CsvController extends Controller {
   val KEY_CONTACT_GROUP_KEY = "contactGroupKey";
   val KEY_CHARSET = "charset"
 
   @throws(classOf[Exception])
-  override def run:Navigation = {
+  override def run: Navigation = {
     import com.aimluck.service.ContactService.ContactProtocol._
-    if(UserDataService.isUserAdmin) {
+    if (UserDataService.isUserAdmin) {
       val contactGroupKey = request.getParameter(KEY_CONTACT_GROUP_KEY);
       val charset = request.getParameter(KEY_CHARSET);
       val _contactGroup = try {
@@ -32,43 +31,43 @@ class CsvController extends Controller {
       }
       _contactGroup match {
         case Some(contactGroup) => {
-            val m:ContactMeta = ContactMeta.get
-            val query:ModelQuery[Contact] = Datastore.query(m)
+          val m: ContactMeta = ContactMeta.get
+          val query: ModelQuery[Contact] = Datastore.query(m)
             .filter(m.contactGroupRef.equal(contactGroup.getKey))
             .limit(AppConstants.MAX_COUNT);
-            response.setContentType("application/x-csv; charset=%s".format(charset))
-            response.setCharacterEncoding(charset)
-            val writer = response.getWriter
-            var result:S3QueryResultList[Contact] = query.asQueryResultList;
-            writeResult(result, writer)
-            while(result.hasNext) {
-              result = Datastore.query(m)
-              .encodedFilters(result.getEncodedFilters)
+          response.setContentType("application/x-csv; charset=%s".format(charset))
+          response.setCharacterEncoding(charset)
+          val writer = response.getWriter
+          var result: S3QueryResultList[Contact] = query.asQueryResultList;
+          writeResult(result, writer)
+          while (result.hasNext) {
+            result = Datastore.query(m)
+              .encodedFilter(result.getEncodedFilter)
               .encodedEndCursor(result.getEncodedCursor)
               .limit(AppConstants.MAX_COUNT)
               .asQueryResultList
-              writeResult(result, writer)
-            }
+            writeResult(result, writer)
           }
+        }
         case None => {
-            return redirect("/")
-          }
+          return redirect("/")
+        }
       }
     }
     return null
   }
 
-  private def writeResult(result:S3QueryResultList[Contact], writer:Writer):Unit = {
+  private def writeResult(result: S3QueryResultList[Contact], writer: Writer): Unit = {
     val iterator = result.iterator
-    while(iterator.hasNext){
+    while (iterator.hasNext) {
       val contact = iterator.next
-      val lb:StringBuilder = new StringBuilder()
-      contact.getReplacers.foreach{ r =>
+      val lb: StringBuilder = new StringBuilder()
+      contact.getReplacers.foreach { r =>
         lb.append(r)
         lb.append(",")
       }
       val line = lb.toString
-      writer.write(line.substring(0, line.size -1))
+      writer.write(line.substring(0, line.size - 1))
       writer.write("\r\n")
     }
   }

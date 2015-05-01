@@ -37,7 +37,7 @@ object StepMailService {
   val dateFormat:DateFormat = StepMailService.dateFormatter;
 
   object StepMailProtocol extends DefaultProtocol {
-    import dispatch.json._
+    import dispatch.classic.json._
     import JsonSerialization._
 
     implicit object StepMailFormat extends Format[StepMail] {
@@ -68,7 +68,7 @@ object StepMailService {
   }
 
   object StepMailListProtocol extends DefaultProtocol {
-    import dispatch.json._
+    import dispatch.classic.json._
     import JsonSerialization._
 
     implicit object StepMailFormat extends Format[StepMail] {

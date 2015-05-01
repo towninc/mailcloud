@@ -26,7 +26,7 @@ object UserDataService {
   val logger = Logger.getLogger(UserDataService.getClass.getName)
 
   object UserDataProtocol extends DefaultProtocol {
-    import dispatch.json._
+    import dispatch.classic.json._
     import JsonSerialization._
 
     implicit object UserDataFormat extends Format[UserData] {

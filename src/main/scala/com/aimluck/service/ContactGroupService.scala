@@ -37,7 +37,7 @@ object ContactGroupService {
   val logger = Logger.getLogger(ContactGroupService.getClass.getName)
 
   object ContactGroupProtocol extends DefaultProtocol {
-    import dispatch.json._
+    import dispatch.classic.json._
     import JsonSerialization._
 
     implicit object ContactGroupFormat extends Format[ContactGroup] {
@@ -58,7 +58,7 @@ object ContactGroupService {
   }
 
   object ContactGroupListProtocol extends DefaultProtocol {
-    import dispatch.json._
+    import dispatch.classic.json._
     import JsonSerialization._
 
     implicit object ContactGroupFormat extends Format[ContactGroup] {
@@ -249,7 +249,7 @@ object ContactGroupService {
   }
 
   def getContactCsv(contactGroup: ContactGroup): ContactCsv = {
-    val contactCsvList = asScalaBuffer(contactGroup.getContactCsvRef().getModelList()).toList.sort {
+    val contactCsvList = asScalaBuffer(contactGroup.getContactCsvRef().getModelList()).toList.sortWith {
       (x, y) =>
         x.getCreatedAt().before(y.getCreatedAt())
     }
@@ -262,7 +262,7 @@ object ContactGroupService {
   }
 
   def getCsvErrors(contactGroup: ContactGroup): List[String] = {
-    val contactCsvList = asScalaBuffer(contactGroup.getContactCsvRef().getModelList()).toList.sort {
+    val contactCsvList = asScalaBuffer(contactGroup.getContactCsvRef().getModelList()).toList.sortWith {
       (x, y) =>
         x.getCreatedAt().before(y.getCreatedAt())
     }

@@ -6,9 +6,9 @@ import com.aimluck.service.UserDataService
 import com.aimluck.model.ContactGroup
 import com.aimluck.service.ContactGroupService
 import com.google.appengine.api.datastore.KeyFactory
-import dispatch.json.JsObject
-import dispatch.json.JsString
-import dispatch.json.JsValue
+import dispatch.classic.json.JsObject
+import dispatch.classic.json.JsString
+import dispatch.classic.json.JsValue
 import java.util.logging.Logger
 import org.dotme.liquidtpl.Constants
 import org.dotme.liquidtpl.LanguageUtil

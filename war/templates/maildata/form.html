@@ -1,6 +1,6 @@
 <div class="box_grayLinewhite mt5">
-    <h4 style="display:none;" id="addTitle"><liquidtpl:text key="mailData"/> <liquidtpl:text key="add"/></h4>
-    <h4 style="display:none;" id="editTitle"><liquidtpl:text key="mailData"/> <liquidtpl:text key="edit"/></h4>
+    <h4 style="display:none;" id="addTitle"><liquidtpl:text key="mailData"/> <liquidtpl:text key="add"/> </h4>
+    <h4 style="display:none;" id="editTitle"><liquidtpl:text key="mailData"/> <liquidtpl:text key="edit"/> </h4>
     <script type="text/javascript">
         //<![CDATA[
 
@@ -145,44 +145,44 @@
     <form action="/recipient/upload" id="recipientCsvForm" method="post" enctype="multipart/form-data" style="display: none;">
         <div class="ma5">
             <label class="bold"><liquidtpl:text key="mailData.csvFile"/>: </label>
-            <span id="recipientError" class="warningMessageOne" style="display:none;" />
+            <span id="recipientError" class="warningMessageOne" style="display:none;" > </span>
             <input type="file" name="formFile" />
             <label><liquidtpl:text key="mailData.csvCharset"/>: </label>
             <select id="charsetField" name="charset"/>
-            <table id="files"/>
+            <table id="files"> </table>
             <div id="sampleReplacersDiv" class="mt5" style="display: none;">
-                <label id="sampleReplacersLabel" class="small"></label>
-                <table id="sampleReplacers" class="small formTable"/>
+                <label id="sampleReplacersLabel" class="small"> </label>
+                <table id="sampleReplacers" class="small formTable"> </table>
             </div>
         </div>
     </form>
     <hr />
     <form action="/maildata/form" id="maildataForm" style="display: none;">
-        <div id="grobalError" class="warningMessage"  style="display:none;" />
+        <div id="grobalError" class="warningMessage"  style="display:none;" > </div>
         <input type="hidden" id="recipientCsvKeyField" name="recipientCsvKey" />
         <div class="ma5">
-            <label class="bold"><liquidtpl:text key="mailData.from"/></label>
-            <span id="senderNameError" class="warningMessageOne" style="display:none;" />
+            <label class="bold"><liquidtpl:text key="mailData.from"/> </label>
+            <span id="senderNameError" class="warningMessageOne" style="display:none;" > </span>
             <div>
-                <input id="senderNameField" name="senderName" class="w35" />&nbsp;<select name="senderEmail" id="senderEmailField" onchange="$.mailDataForm.onSenderChange();"></select>
+                <input id="senderNameField" name="senderName" class="w35" />&nbsp;<select name="senderEmail" id="senderEmailField" onchange="$.mailDataForm.onSenderChange();"> </select>
             </div>
         </div>
         <div class="ma5">
-            <label class="bold"><liquidtpl:text key="mailData.subject"/></label>
-            <span id="subjectError" class="warningMessageOne" style="display:none;" />
+            <label class="bold"><liquidtpl:text key="mailData.subject"/> </label>
+            <span id="subjectError" class="warningMessageOne" style="display:none;" > </span>
             <input id="subjectField" name="subject" class="w99" />
         </div>
         <div class="ma5">
-            <label class="bold"><liquidtpl:text key="mailData.content"/></label>
-            <span id="contentError" class="warningMessageOne" style="display:none;" />
-            <textarea id="contentField" name="content" class="w99" rows="20"></textarea>
+            <label class="bold"><liquidtpl:text key="mailData.content"/> </label>
+            <span id="contentError" class="warningMessageOne" style="display:none;" > </span>
+            <textarea id="contentField" name="content" class="w99" rows="20"> </textarea>
         </div>
-        <div class="ma5"><label for="isReplacedField"><input id="isReplacedField" name="isReplaced" type="checkbox" /><liquidtpl:text key="mailData.isReplaced"/></label></div>
+        <div class="ma5"><label for="isReplacedField"><input id="isReplacedField" name="isReplaced" type="checkbox" /><liquidtpl:text key="mailData.isReplaced"> </div> </label> </div>
     </form>
 </div>
 
 <div id="text" style="display:none;">
-    <p id="mailData_csvOverWriteConfirm"><liquidtpl:text key="mailData.csvOverWriteConfirm"/></p>
-<p id="recipient_email"><liquidtpl:text key="recipient.email"/></p>
-<p id="mailData_sampleReplacers"><liquidtpl:text key="mailData.sampleReplacers"/></p>
+    <p id="mailData_csvOverWriteConfirm"><liquidtpl:text key="mailData.csvOverWriteConfirm"/> </p>
+<p id="recipient_email"><liquidtpl:text key="recipient.email"/> </p>
+<p id="mailData_sampleReplacers"><liquidtpl:text key="mailData.sampleReplacers"/> </p>
 </div>

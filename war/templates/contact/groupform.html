@@ -1,6 +1,6 @@
 <div class="box_grayLinewhite mt5">
-    <h4 style="display:none;" id="addTitle"><liquidtpl:text key="contactGroup"/> <liquidtpl:text key="add"/></h4>
-    <h4 style="display:none;" id="editTitle"><liquidtpl:text key="contactGroup"/> <liquidtpl:text key="edit"/></h4>
+    <h4 style="display:none;" id="addTitle"><liquidtpl:text key="contactGroup"/> <liquidtpl:text key="add"/> </h4>
+    <h4 style="display:none;" id="editTitle"><liquidtpl:text key="contactGroup"/> <liquidtpl:text key="edit"/> </h4>
     <script type="text/javascript">
         //<![CDATA[
         $(function(){
@@ -127,25 +127,25 @@
     <form action="/contact/upload" id="contactCsvForm" method="post" enctype="multipart/form-data" style="display: none;">
         <div class="ma5">
             <label class="bold"><liquidtpl:text key="contactGroup.csvFile"/>: </label>
-            <span id="contactError" class="warningMessageOne" style="display:none;" />
+            <span id="contactError" class="warningMessageOne" style="display:none;" > </span>
             <input type="file" name="formFile" />
             <label><liquidtpl:text key="contactGroup.csvCharset"/>: </label>
-            <select id="charsetField" name="charset"/>
-            <table id="files"/>
+            <select id="charsetField" name="charset"> </select>
+            <table id="files"> </table>
             <div id="sampleReplacersDiv" class="mt5" style="display: none;">
-                <label id="sampleReplacersLabel" class="small"></label>
-                <table id="sampleReplacers" class="small formTable"/>
+                <label id="sampleReplacersLabel" class="small"> </label>
+                <table id="sampleReplacers" class="small formTable"> </table>
             </div>
         </div>
     </form>
     <hr />
     <form action="/contact/groupform" id="contactGroupForm" style="display: none;">
-        <div id="grobalError" class="warningMessage"  style="display:none;" />
+        <div id="grobalError" class="warningMessage"  style="display:none;" > </div>
         <input type="hidden" id="contactCsvKeyField" name="contactCsvKey" />
         <div class="ma5">
-            <label class="bold"><liquidtpl:text key="contactGroup.name"/></label>
-            <span id="nameError" class="warningMessageOne" style="display:none;" />
-            <div><input id="nameField" name="name" class="w35" /></div>
+            <label class="bold"><liquidtpl:text key="contactGroup.name"/> </label>
+            <span id="nameError" class="warningMessageOne" style="display:none;" > </span>
+            <div><input id="nameField" name="name" class="w35" /> </div>
         </div>
         <div>
             <label for="modifyContactCreatedAtField">
@@ -153,13 +153,13 @@
                 <liquidtpl:text key="contactGroup.modifyContactCreatedAt" />
             </label>
             &nbsp;&nbsp;<input id="contactCreatedAtField" name="contactCreatedAt" />
-            <span id="contactCreatedAtError" class="warningMessageOne" style="display:none;" />
+            <span id="contactCreatedAtError" class="warningMessageOne" style="display:none;" > </span>
         </div>
     </form>
 </div>
 
 <div id="text" style="display:none;">
-    <p id="contactGroup_csvOverWriteConfirm"><liquidtpl:text key="contactGroup.csvOverWriteConfirm"/></p>
-<p id="contact_email"><liquidtpl:text key="contact.email"/></p>
-<p id="contactGroup_sampleReplacers"><liquidtpl:text key="contactGroup.sampleReplacers"/></p>
+    <p id="contactGroup_csvOverWriteConfirm"><liquidtpl:text key="contactGroup.csvOverWriteConfirm"/> </p>
+<p id="contact_email"><liquidtpl:text key="contact.email"/> </p>
+<p id="contactGroup_sampleReplacers"><liquidtpl:text key="contactGroup.sampleReplacers"/> </p>
 </div>
