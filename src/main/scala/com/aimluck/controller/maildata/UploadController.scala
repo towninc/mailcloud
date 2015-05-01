@@ -9,8 +9,8 @@ import org.slim3.controller.Navigation
 import org.slim3.controller.upload.FileItem
 import scala.collection.JavaConversions._
 import com.google.appengine.api.datastore.KeyFactory
-import dispatch.json.JsObject
-import dispatch.json.JsString
+import dispatch.classic.json.JsObject
+import dispatch.classic.json.JsString
 import java.nio.charset.Charset
 import org.dotme.liquidtpl.Constants
 import org.dotme.liquidtpl.LanguageUtil

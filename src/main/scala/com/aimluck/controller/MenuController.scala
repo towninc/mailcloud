@@ -5,9 +5,9 @@
 package com.aimluck.controller
 
 import com.aimluck.lib.util.AppConstants
-import dispatch.json.JsObject
-import dispatch.json.JsString
-import dispatch.json.JsValue
+import dispatch.classic.json.JsObject
+import dispatch.classic.json.JsString
+import dispatch.classic.json.JsValue
 import org.dotme.liquidtpl.Constants
 import org.dotme.liquidtpl.LanguageUtil
 import org.dotme.liquidtpl.controller.AbstractJsonController

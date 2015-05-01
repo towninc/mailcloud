@@ -4,9 +4,9 @@ import com.aimluck.model.Contact
 import com.aimluck.service.ContactService
 import com.aimluck.service.ContactGroupService
 import com.aimluck.service.UserDataService
-import dispatch.json.JsObject
-import dispatch.json.JsString
-import dispatch.json.JsValue
+import dispatch.classic.json.JsObject
+import dispatch.classic.json.JsString
+import dispatch.classic.json.JsValue
 import org.dotme.liquidtpl.Constants
 import org.dotme.liquidtpl.LanguageUtil
 import org.dotme.liquidtpl.controller.AbstractJsonDataController

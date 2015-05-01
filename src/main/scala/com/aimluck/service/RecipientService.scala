@@ -28,7 +28,7 @@ object RecipientService {
   val logger = Logger.getLogger(RecipientService.getClass.getName)
 
   object RecipientProtocol extends DefaultProtocol {
-    import dispatch.json._
+    import dispatch.classic.json._
     import JsonSerialization._
 
     implicit object RecipientFormat extends Format[Recipient] {

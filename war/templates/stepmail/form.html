@@ -1,6 +1,6 @@
 <div class="box_grayLinewhite mt5">
-    <h4 style="display:none;" id="addTitle"><liquidtpl:text key="stepMail"/> <liquidtpl:text key="add"/></h4>
-    <h4 style="display:none;" id="editTitle"><liquidtpl:text key="stepMail"/> <liquidtpl:text key="edit"/></h4>
+    <h4 style="display:none;" id="addTitle"><liquidtpl:text key="stepMail"/> <liquidtpl:text key="add"/> </h4>
+    <h4 style="display:none;" id="editTitle"><liquidtpl:text key="stepMail"/> <liquidtpl:text key="edit"/> </h4>
     <script type="text/javascript">
         //<![CDATA[
 
@@ -84,55 +84,55 @@
 
     <form action="/stepmail/form" id="stepmailForm" style="display: none;">
         <input id="contactGroupKeyField" name="contactGroupKey" type="hidden"/>
-        <div id="grobalError" class="warningMessage"  style="display:none;" />
+        <div id="grobalError" class="warningMessage"  style="display:none;" > </div>
         <input type="hidden" id="recipientCsvKeyField" name="recipientCsvKey" />
         <div class="ma5">
-            <label class="bold"><liquidtpl:text key="stepMail.from"/></label>
-            <span id="senderNameError" class="warningMessageOne" style="display:none;" />
+            <label class="bold"><liquidtpl:text key="stepMail.from"/> </label>
+            <span id="senderNameError" class="warningMessageOne" style="display:none;" > </span>
             <div>
                 <input id="senderNameField" name="senderName" class="w35" />&nbsp;
                 <select name="senderEmail" id="senderEmailField" onchange="$.stepMailForm.onSenderChange();" />
             </div>
         </div>
         <div class="ma5">
-            <label class="bold" for="formContactGroupKeyField"><liquidtpl:text key="contactGroup"/></label>
-            <div><select id="formContactGroupKeyField" name="formContactGroupKey" onchange="$.stepMailForm.onContactGroupChange();" /></div>
+            <label class="bold" for="formContactGroupKeyField"><liquidtpl:text key="contactGroup"/> </label>
+            <div><select id="formContactGroupKeyField" name="formContactGroupKey" onchange="$.stepMailForm.onContactGroupChange();" /> </div>
         </div>
         <div class="ma5">
-            <label class="bold"><liquidtpl:text key="stepMail.subject"/></label>
-            <span id="subjectError" class="warningMessageOne" style="display:none;" />
+            <label class="bold"><liquidtpl:text key="stepMail.subject"/> </label>
+            <span id="subjectError" class="warningMessageOne" style="display:none;" > </span>
             <input id="subjectField" name="subject" class="w99" />
         </div>
         <div class="ma5">
-            <label class="bold"><liquidtpl:text key="stepMail.content"/></label>
-            <span id="contentError" class="warningMessageOne" style="display:none;" />
-            <textarea id="contentField" name="content" class="w99" rows="20"></textarea>
+            <label class="bold"><liquidtpl:text key="stepMail.content"/> </label>
+            <span id="contentError" class="warningMessageOne" style="display:none;" > </span>
+            <textarea id="contentField" name="content" class="w99" rows="20"> </textarea>
         </div>
         <div class="ma5">
-            <label for="isReplacedField"><input id="isReplacedField" name="isReplaced" type="checkbox" /><liquidtpl:text key="stepMail.isReplaced"/></label>
+            <label for="isReplacedField"><input id="isReplacedField" name="isReplaced" type="checkbox" /><liquidtpl:text key="stepMail.isReplaced"/> </label>
             <div id="sampleReplacersDiv" class="mt5" style="display: none;">
-                <label id="sampleReplacersLabel" class="small"></label>
-                <table id="sampleReplacers" class="small formTable"/>
+                <label id="sampleReplacersLabel" class="small"> </label>
+                <table id="sampleReplacers" class="small formTable"> </table>
             </div>
         </div>
         <hr />
         <div class="ma5">
-            <span id="intervalDaysError" class="warningMessageOne" style="display:none;" />
+            <span id="intervalDaysError" class="warningMessageOne" style="display:none;" > </span>
             <liquidtpl:text key="stepMail.daysFormPrefix"/>
             <input id="intervalDaysField" name="intervalDays" />
             <liquidtpl:text key="stepMail.daysFormSuffix"/>
         </div>
         <div class="ma5">
-            <label class="bold"><liquidtpl:text key="stepMail.sendTime"/></label>
-            <div><input id="sendTimeField" name="sendTime" /><span id="sendTimeError" class="warningMessageOne" style="display:none;" /></div>
+            <label class="bold"><liquidtpl:text key="stepMail.sendTime"/> </label>
+            <div><input id="sendTimeField" name="sendTime" /><span id="sendTimeError" class="warningMessageOne" style="display:none;" > </span> </div>
         </div>
     </form>
 </div>
 
 <div id="text" style="display:none;">
-    <p id="stepMail_csvOverWriteConfirm"><liquidtpl:text key="stepMail.csvOverWriteConfirm"/></p>
-<p id="recipient_email"><liquidtpl:text key="recipient.email"/></p>
-<p id="stepMail_sampleReplacers"><liquidtpl:text key="stepMail.sampleReplacers"/></p>
-<p id="contactGroup_sampleReplacers"><liquidtpl:text key="contactGroup.sampleReplacers"/></p>
-<p id="contactGroup_noContact"><liquidtpl:text key="contactGroup.noContact"/></p>
+    <p id="stepMail_csvOverWriteConfirm"><liquidtpl:text key="stepMail.csvOverWriteConfirm"/> </p>
+<p id="recipient_email"><liquidtpl:text key="recipient.email"/> </p>
+<p id="stepMail_sampleReplacers"><liquidtpl:text key="stepMail.sampleReplacers"/> </p>
+<p id="contactGroup_sampleReplacers"><liquidtpl:text key="contactGroup.sampleReplacers"/> </p>
+<p id="contactGroup_noContact"><liquidtpl:text key="contactGroup.noContact"/> </p>
 </div>

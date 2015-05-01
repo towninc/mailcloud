@@ -43,7 +43,7 @@ object ReminderService {
   }
 
   object ReminderProtocol extends DefaultProtocol {
-    import dispatch.json._
+    import dispatch.classic.json._
     import JsonSerialization._
 
     implicit object ReminderFormat extends Format[Reminder] {
@@ -81,7 +81,7 @@ object ReminderService {
   }
 
   object ReminderListProtocol extends DefaultProtocol {
-    import dispatch.json._
+    import dispatch.classic.json._
     import JsonSerialization._
 
     implicit object ReminderFormat extends Format[Reminder] {

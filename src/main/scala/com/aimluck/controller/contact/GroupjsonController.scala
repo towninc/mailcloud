@@ -4,8 +4,8 @@ import com.aimluck.lib.util.AppConstants
 import com.aimluck.model.ContactGroup
 import com.aimluck.service.ContactGroupService
 import com.aimluck.service.UserDataService
-import dispatch.json.JsString
-import dispatch.json.JsValue
+import dispatch.classic.json.JsString
+import dispatch.classic.json.JsValue
 import java.util.Date
 import org.dotme.liquidtpl.Constants
 import org.dotme.liquidtpl.LanguageUtil

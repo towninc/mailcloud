@@ -5,7 +5,7 @@ import com.aimluck.service.MailDataService
 import com.aimluck.service.UserDataService
 import com.google.appengine.api.blobstore.BlobstoreService
 import com.google.appengine.api.blobstore.BlobstoreServiceFactory
-import dispatch.json.JsValue
+import dispatch.classic.json.JsValue
 import java.util.Date
 import java.util.logging.Logger
 import org.dotme.liquidtpl.Constants

@@ -48,7 +48,7 @@ object MailDataService {
   }
 
   object MailDataProtocol extends DefaultProtocol {
-    import dispatch.json._
+    import dispatch.classic.json._
     import JsonSerialization._
 
     implicit object MailDataFormat extends Format[MailData] {
@@ -79,7 +79,7 @@ object MailDataService {
   }
 
   object MailDataListProtocol extends DefaultProtocol {
-    import dispatch.json._
+    import dispatch.classic.json._
     import JsonSerialization._
 
     implicit object MailDataFormat extends Format[MailData] {

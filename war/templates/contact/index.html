@@ -156,7 +156,7 @@
 </script>
 <form action="/contact/index">
     <h4>
-        <label for="contactGroup"><liquidtpl:text key="contact"/> <liquidtpl:text key="list"/>: <select id="contactGroup" onchange="onChangeGroup();" /></label>
+        <label for="contactGroup"><liquidtpl:text key="contact"/> <liquidtpl:text key="list"/>: <select id="contactGroup" onchange="onChangeGroup();" /> </label>
     </h4>
 </form>
 
@@ -167,14 +167,14 @@
                 <th class="thin" id="contactLabelCheck">
                     <input id="checkAll" type="checkbox" onclick="$.checkAll(this, 'check_contact');"/>
                 </th>
-                <th><liquidtpl:text key="createdAt"/></th>
+                <th><liquidtpl:text key="createdAt"/> </th>
             </tr>
         </table>
     </div>
     <div class="mb20">
         <span class="pagination">
             <ul>
-                <li id="controlPager" class="mr10"></li>
+                <li id="controlPager" class="mr10"> </li>
                 <li id="previousPager" class="left" />
                 <li id="nextPager" class="right" />
             </ul>
@@ -184,11 +184,11 @@
 
 <script id="contactItem" type="text/x-jquery-tmpl">
     <tr class="row selectable">
-        <td id="td_${id}"><input class="check_contact" type="checkbox" name="id[]" id="id_${id}" value="${id}"/></td>
+        <td id="td_${id}"><input class="check_contact" type="checkbox" name="id[]" id="id_${id}" value="${id}"/> </td>
         <td class='thin'>${createdAt}</td>
     </tr>
 </script>
 
 <div id="text" style="display:none;">
-    <p id="contact_email"><liquidtpl:text key="contact.email"/></p>
+    <p id="contact_email"><liquidtpl:text key="contact.email"/> </p>
 </div>

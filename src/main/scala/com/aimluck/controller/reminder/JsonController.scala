@@ -5,7 +5,7 @@ import com.aimluck.model.Reminder
 import com.aimluck.service.ReminderService
 
 import com.aimluck.service.UserDataService
-import dispatch.json.JsValue
+import dispatch.classic.json.JsValue
 import java.util.Calendar
 import java.util.Date
 import org.dotme.liquidtpl.Constants

@@ -42,13 +42,13 @@
     });
     //]]>
 </script>
-<h4><liquidtpl:text key="contactGroup"/> <liquidtpl:text key="list"/></h4>
+<h4><liquidtpl:text key="contactGroup"/> <liquidtpl:text key="list"/> </h4>
 <table id="contactGroupList" class="listTable" style="display: none;">
     <tr>
-        <th><liquidtpl:text key="contactGroup.name"/></th>
-<th></th>
-<th></th>
-<th></th>
+        <th><liquidtpl:text key="contactGroup.name"/> </th>
+<th> </th>
+<th> </th>
+<th> </th>
 </tr>
 </table>
 
@@ -57,17 +57,17 @@
         <td id="name_${id}">${name}&nbsp;&nbsp;(${contactCount} <liquidtpl:text key="contact.unit"/>)</td>
 <td class='thin'>
     {{if isBusy==false}}
-    <a href="/contact/groupform?id=${id}" class="icon_edit"><liquidtpl:text key="edit"/></a>
+    <a href="/contact/groupform?id=${id}" class="icon_edit"><liquidtpl:text key="edit"/> </a>
     {{else}}
     <liquidtpl:text key="contactGroup.busy"/>
     {{/if}}
 </td>
-<td class='thin'><a href="/contact/index?contactGroupKey=${id}" class="icon_user"><liquidtpl:text key="contact"/> <liquidtpl:text key="list"/></a></td>
+<td class='thin'><a href="/contact/index?contactGroupKey=${id}" class="icon_user"><liquidtpl:text key="contact"/> <liquidtpl:text key="list"/> </a> </td>
 <td class='thin'>
     {{if isBusy==false}}
-    <a href="/contact/groupdelete?id=${id}" class="icon_delete" onclick="return confirm('${deleteConfirm}');"><liquidtpl:text key="delete"/></a>
+    <a href="/contact/groupdelete?id=${id}" class="icon_delete" onclick="return confirm('${deleteConfirm}');"><liquidtpl:text key="delete"/> </a>
     {{else}}
-    <span><button onclick="$.forceCount('${id}');"><liquidtpl:text key="refresh"/></button></span>
+    <span><button onclick="$.forceCount('${id}');"><liquidtpl:text key="refresh"/> </button> </span>
     {{/if}}
 </td>
 </tr>
