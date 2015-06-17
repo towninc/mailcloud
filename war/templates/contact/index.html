@@ -156,7 +156,7 @@
 </script>
 <form action="/contact/index">
     <h4>
-        <label for="contactGroup"><liquidtpl:text key="contact"/> <liquidtpl:text key="list"/>: <select id="contactGroup" onchange="onChangeGroup();" /> </label>
+        <label for="contactGroup"><liquidtpl:text key="contact"/> <liquidtpl:text key="list"/>: <select id="contactGroup" onchange="onChangeGroup();"></select> </label>
     </h4>
 </form>
 
@@ -175,8 +175,8 @@
         <span class="pagination">
             <ul>
                 <li id="controlPager" class="mr10"> </li>
-                <li id="previousPager" class="left" />
-                <li id="nextPager" class="right" />
+                <li id="previousPager" class="left"> </li>
+                <li id="nextPager" class="right"> </li>
             </ul>
         </span>
     </div>
